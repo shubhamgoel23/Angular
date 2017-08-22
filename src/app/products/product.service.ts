@@ -11,7 +11,8 @@ import { IProduct } from './product';
 
 @Injectable()
 export class  ProductService{
-    private _productUrl = 'http://localhost:5000/data';
+    //private _productUrl = 'http://localhost:5000/data';
+    private _productUrl = './assets/products.json';
     constructor(private _http : HttpClient){}
 
     getProducts(): Observable<IProduct[]> {

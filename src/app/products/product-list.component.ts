@@ -25,7 +25,7 @@ export class ProductListComponent implements OnInit{
     }
     ngOnInit():void{
         this._productService.getProducts()
-                .subscribe(abc => this.products = abc,
+                .subscribe(products => this.products = products,
                 error => this.errorMessage = <any>error);
     }
     onRatingClicked(message: string): void{
