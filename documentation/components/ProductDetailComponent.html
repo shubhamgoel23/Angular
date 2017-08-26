@@ -457,7 +457,7 @@
                 <tbody>
                     <tr>
                         <td class="col-md-4">
-                            <code>constructor(_route: <a href="https://angular.io/docs/ts/latest/api/router/index/ActivatedRoute-interface.html" target="_blank" >ActivatedRoute</a>, _router: <a href="https://angular.io/docs/ts/latest/api/router/index/Router-class.html" target="_blank" >Router</a>)</code>
+                            <code>constructor(_route: <a href="https://angular.io/docs/ts/latest/api/router/index/ActivatedRoute-interface.html" target="_blank" >ActivatedRoute</a>, _router: <a href="https://angular.io/docs/ts/latest/api/router/index/Router-class.html" target="_blank" >Router</a>, _productService: <a href="../injectables/ProductService.html" >ProductService</a>)</code>
                         </td>
                     </tr>
     
@@ -467,6 +467,30 @@
 
     <section>
         <h3 id="methods">Methods</h3>
+            <table class="table table-sm table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <b> getProduct</b>
+                        </td>
+                    </tr>
+    
+                    <tr>
+                        <td class="col-md-4">
+    <code>getProduct(id: number)</code>
+                        </td>
+                    </tr>
+    
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description">
+                                    <b>Returns: </b>    <code>void</code>
+    
+                                </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <table class="table table-sm table-bordered">
                 <tbody>
                     <tr>
@@ -495,6 +519,21 @@
 
     <section>
         <h3 id="inputs">Properties</h3>
+            <table class="table table-sm table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <b> errorMessage</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <code>errorMessage:     <code>string</code>
+    </bcode>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <table class="table table-sm table-bordered">
                 <tbody>
                     <tr>
@@ -537,6 +576,7 @@
 import { ActivatedRoute, Router } from &#x27;@angular/router&#x27;;
 
 import { IProduct } from &#x27;./product&#x27;;
+import { ProductService } from &quot;./product.service&quot;;
 
 @Component({
     moduleId: module.id,
@@ -544,17 +584,26 @@ import { IProduct } from &#x27;./product&#x27;;
 })
 export class ProductDetailComponent {
     pageTitle: string &#x3D; &#x27;Product Detail&#x27;;
+    errorMessage: string;
     product : IProduct;
 
     constructor(private _route: ActivatedRoute,
-                    private _router: Router){
+                    private _router: Router,
+                    private _productService: ProductService){
 
     }
 
     ngOnInit():void{
         let id &#x3D; +this._route.snapshot.params[&#x27;id&#x27;];
-        this.pageTitle +&#x3D; &#x60;:${id}&#x60;;
+        //this.pageTitle +&#x3D; &#x60;:${id}&#x60;;
+        this.getProduct(id);
     }
+
+    getProduct(id: number) {
+        this._productService.getProduct(id).subscribe(
+          product &#x3D;&gt; this.product &#x3D; product,
+          error &#x3D;&gt; this.errorMessage &#x3D; &lt;any&gt;error);
+      }
 
     onBack():void{
         this._router.navigate([&#x27;/products&#x27;]);

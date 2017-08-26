@@ -460,6 +460,30 @@
                         <tbody>
                             <tr>
                                 <td class="col-md-4">
+                                    <b> getProduct</b>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+            <code>getProduct(id: number)</code>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description">
+                                            <b>Returns: </b>    <code>Observable&lt;IProduct&gt;</code>
+            
+                                        </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
                                     <b><span class="modifier">Private</span> handleError</b>
                                 </td>
                             </tr>
@@ -533,6 +557,12 @@ export class  ProductService{
         .catch(this.handleError);
 
     }
+
+    getProduct(id: number): Observable&lt;IProduct&gt; {
+        return this.getProducts()
+            .map((products: IProduct[]) &#x3D;&gt; products.find(p &#x3D;&gt; p.productId &#x3D;&#x3D;&#x3D; id));
+    }
+    
     private handleError(error : Response){
         console.error(error);
         return Observable.throw(error.json().error || &#x27;Server Error&#x27;)
